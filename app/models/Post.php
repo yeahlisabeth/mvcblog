@@ -12,7 +12,7 @@ class Post {
     public function findAllPosts() {
 
         $this->db->query("SELECT * FROM posts ORDER BY created_at ASC");
-        //resultSet() puts result into an array, written in Database.php
+
         $results = $this->db->resultSet();
 
         return $results;

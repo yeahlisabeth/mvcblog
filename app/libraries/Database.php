@@ -23,16 +23,12 @@ class Database {
             $this->error = $e->getMessage();
             echo $this->error;
         }
-
-        
     }
 
-    //allows writing queries
     public function query($sql) {
         $this->statement = $this->dbHandler->prepare($sql);
     }
 
-    //bind values
     public function bind($parameter, $value, $type = null) {
         switch (is_null($type)) {
             case is_int($value):
@@ -50,24 +46,20 @@ class Database {
         $this->statement->bindValue($parameter, $value, $type);
     }
 
-    //execute the prepared statement
     public function execute() {
         return $this->statement->execute();
     }
 
-    //return an array
     public function resultSet() {
         $this->execute();
         return $this->statement->fetchAll(PDO::FETCH_OBJ);
     }
 
-    //return a specific row as an object
     public function single() {
         $this->execute();
         return $this->statement->fetch(PDO::FETCH_OBJ);
     }
 
-    //gets the row count
     public function rowCount() {
         return $this->statement->rowCount();
     }

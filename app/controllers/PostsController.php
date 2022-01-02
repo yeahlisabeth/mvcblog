@@ -48,7 +48,7 @@ class PostsController extends Controller {
             }
             if (empty($data['titleError']) && empty($data['bodyError'])) {
                 if ($this->postModel->addPost($data)) {
-                    header('location: ' . URLROOT . '/posts');
+                    header('location: ' . URLROOT . '/posts/index');
                 } else {
                     die('somethingWentWrong');
                 }

@@ -6,7 +6,7 @@ require APPROOT . '/views/includes/head.php';
         require APPROOT . '/views/includes/navigation.php';
         ?>
     <div class="wrapper-landing">
-        <h1>$oneMansCrappySoftware</h1>
-        <h2>{isAnotherMansFullTimeJob}</h2>
+        <h1>MVC</h1>
+        <h2>blog</h2>
     </div>
 </div>

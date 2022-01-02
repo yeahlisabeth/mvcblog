@@ -19,7 +19,7 @@ class UsersController extends Controller {
         ];
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            //sanitize post data
+
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
             $data = [
@@ -36,26 +36,23 @@ class UsersController extends Controller {
             $nameValidation = "/^[a-zA-Z0-9]*$/";
             $passwordValidation = "/^(.{0,7}|[^a-z]*|[^\d]*)$/i";
 
-            //validate username on letters/numbers
             if (empty($data['username'])) {
                 $data['usernameError'] = 'pleaseEnterUsername';
             } elseif (!preg_match($nameValidation, $data['username'])) {
                 $data['usernameError'] = 'nameCanOnlyContentLettersOrNumbers';
             }
 
-            //validate email
             if (empty($data['email'])) {
                 $data['emailError'] = 'pleaseEnterEmail';
             } elseif (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
                 $data['emailError'] = 'pleaseEnterTheCorrectFormat';
             } else {
-                //check if email exists
+
                 if ($this->userModel->findUserByEmail($data['email'])) {
                     $data['emailError'] = 'emailIsAlreadyTaken';
                 }
             }
 
-            //validate password on length and numeric values
             if (empty($data['password'])) {
                 $data['passwordError'] = 'pleaseEnterPassword';
             } elseif (strlen($data['password']) < 8) {
@@ -64,7 +61,6 @@ class UsersController extends Controller {
                 $data['passwordError'] = 'passwordMustHaveANumericValue';
             }
 
-            //validate confirm password
             if (empty($data['confirmPassword'])) {
                 $data['confirmPasswordError'] = 'pleaseEnterPassword';
             } else {
@@ -73,15 +69,12 @@ class UsersController extends Controller {
                 }
             }
 
-            //make sure that errors are empty
             if (empty($data['usernameError']) && empty($data['emailError']) &&
                 empty($data['passwordError']) && empty($data['confirmPasswordError'])) {
-                //hash password
+
                 $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
 
-                //register user from model function
                 if ($this->userModel->register($data)) {
-                    //redirect to the login page
                     header('location: ' . URLROOT . '/users/login');
                 } else {
                     die('somethingWentWrong');
@@ -102,10 +95,10 @@ class UsersController extends Controller {
             'passwordError' => ''
         ];
 
-        //check for post
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            //sanitize post data
+
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
             $data = [
                 'username' => trim($_POST['username']),
                 'password' => trim($_POST['password']),
@@ -113,15 +106,14 @@ class UsersController extends Controller {
                 'passwordError' => ''
             ];
 
-            //validate username
             if (empty($data['username'])) {
                 $data['usernameError'] = 'pleaseEnterAUsername';
             }
-            //validate password
+
             if (empty($data['password'])) {
                 $data['passwordError'] = 'pleaseEnterAPassword';
             }
-            //check if all errors are empty
+
             if (empty($data['usernameError']) && empty($data['passwordError'])) {
                 $loggedInUser = $this->userModel->login($data['username'], $data['password']);
 
@@ -151,7 +143,7 @@ class UsersController extends Controller {
         $_SESSION['user_id'] = $user->user_id;
         $_SESSION['username'] = $user->username;
         $_SESSION['email'] = $user->email;
-        header('location:' . URLROOT . '/pages/index');
+        header('location:' . URLROOT . '/index');
     }
 
     public function logout() {

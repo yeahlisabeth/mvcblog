@@ -1,19 +1,15 @@
 <nav class="top-nav">
     <ul>
         <li>
-            <a href="<?php echo URLROOT; ?>/pages/index">home</a>
+            <?php if (isLoggedIn()): ?>
+                <a href="<?php echo URLROOT; ?>/posts/create">post</a>
+            <?php endif; ?>
         </li>
         <li>
-            <a href="<?php echo URLROOT; ?>/pages/about">about</a>
-        </li>
-        <li>
-            <a href="<?php echo URLROOT; ?>/pages/projects">projects</a>
+            <a href="<?php echo URLROOT; ?>/index">home</a>
         </li>
         <li>
             <a href="<?php echo URLROOT; ?>/posts">blog</a>
-        </li>
-        <li>
-            <a href="<?php echo URLROOT; ?>/pages/contact">contact</a>
         </li>
         <li class="btn-login">
             <?php if(isLoggedIn()) : ?>

@@ -20,6 +20,7 @@ require APPROOT . '/views/includes/head.php';
             <input
                     type="text"
                     name="title"
+                    placeholder="enterYourTitle"
                     value="<?php echo $data['post']->title ?>">
             <span class="invalidFeedback">
                 <?php echo $data['titleError'] ?>
@@ -27,7 +28,9 @@ require APPROOT . '/views/includes/head.php';
         </div>
 
         <div class="form-item">
-            <textarea name="body" placeholder="enterYourPost"><?php echo $data['post']->body ?></textarea>
+            <textarea
+                    name="body"
+                    placeholder="enterYourPost"><?php echo $data['post']->body ?></textarea>
             <span class="invalidFeedback">
                 <?php echo $data['bodyError'] ?>
             </span>
